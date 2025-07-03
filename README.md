@@ -20,10 +20,22 @@ little thing im tinkering with to get better at Go
 
 - `/api/say` (POST) - Repeats whatever you say to it.
 
-Send this as a JSON body:
+Data:
 
 ```json
 {
   "message": "Hello, world!"
+}
+```
+
+- `/api/user` (POST) - Store a user in the remote database.
+
+Date:
+
+```json
+{
+  "name": "Some name",
+  "email": "example@email.com",
+  "age": 18
 }
 ```

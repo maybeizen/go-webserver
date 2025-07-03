@@ -14,9 +14,6 @@ import (
 func main() {
 	utils.LoadEnv()
 
-	r := chi.NewRouter()
-	r.Mount("/api", routes.Routes(r))
-
 	db, err := utils.ConnectDB()
 	if err != nil {
 		log.Fatal("Failed to connect to MongoDB: ", err)
@@ -29,6 +26,9 @@ func main() {
 			log.Fatal(err)
 		}
 	}()
+
+	r := chi.NewRouter()
+	r.Mount("/api", routes.Routes(r, db))
 
 	log.Println("Starting server on port 8080")
 	err = http.ListenAndServe(":8080", r)
