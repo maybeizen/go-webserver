@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 
@@ -16,6 +17,22 @@ func main() {
 	r := chi.NewRouter()
 	r.Mount("/api", routes.Routes(r))
 
+	db, err := utils.ConnectDB()
+	if err != nil {
+		log.Fatal("Failed to connect to MongoDB: ", err)
+	}
+
+	log.Printf("Connected to MongoDB")
+
+	defer func() {
+		if err := db.Disconnect(context.Background()); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
 	log.Println("Starting server on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	err = http.ListenAndServe(":8080", r)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
