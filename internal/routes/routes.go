@@ -13,6 +13,8 @@ func Routes(r *chi.Mux, client *mongo.Client) http.Handler {
 	r.Get("/random", controller.RandomHandler)
 	r.Get("/health", controller.HealthCheckController)
 	r.Post("/say", controller.SayHandler)
+
+	r.Get("/users", controller.GetAllUsersHandler(client))
 	r.Post("/user", controller.AddUserHandler(client))
 
 	return r

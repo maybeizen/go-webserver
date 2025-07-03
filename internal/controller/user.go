@@ -9,6 +9,7 @@ import (
 
 	"github.com/maybeizen/go-webserver/internal/types"
 
+	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
@@ -25,6 +26,26 @@ func AddUserToDatabase(client *mongo.Client, user types.User) error {
 
 	log.Printf("Added user %s to database", user.Name)
 	return nil
+}
+
+func GetAllUsers(client *mongo.Client) ([]types.User, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	collection := client.Database("golang-test").Collection("users")
+
+	cursor, err := collection.Find(ctx, bson.D{})
+	if err != nil {
+		return nil, err
+	}
+
+	var users []types.User
+
+	if err := cursor.All(ctx, &users); err != nil {
+		return nil, err
+	}
+
+	return users, nil
 }
 
 func AddUserHandler(client *mongo.Client) http.HandlerFunc {
@@ -46,3 +67,16 @@ func AddUserHandler(client *mongo.Client) http.HandlerFunc {
 		json.NewEncoder(w).Encode(user)
 	}
 }
+
+func GetAllUsersHandler(client *mongo.Client) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		users, err := GetAllUsers(client)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(users)
+	}
+}	
