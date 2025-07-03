@@ -30,7 +30,7 @@ Data:
 
 - `/api/user` (POST) - Store a user in the remote database.
 
-Date:
+Data:
 
 ```json
 {
