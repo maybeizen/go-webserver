@@ -2,23 +2,25 @@
 
 little thing im tinkering with to get better at Go
 
-# Building
+## Building
 
-(yeah i know im using node scripts for building. shut up)
+(yeah im using Node scripts to build a Go project. Shut up)
 
-- `npm run build` - builds to ./bin/webserver.exe (Windows)
-- `npm run build-linux` builds to ./bin/webserver
+- `npm run build` - Builds a Windows executable to `./bin/webserver.exe`
+- `npm run build-linux` - Builds a Linux executable to `./bin/webserver`
 
-# Endpoints (see [routes.go](./internal/routes/routes.go))
+## Endpoints
 
-- `/api/health` (GET) - Returns `200 OK` if the server is running.
-- `/api/random` (GET) - Returns a random number 1-100
+(check out [routes.go](./internal/routes/routes.go))
+
+- `/api/health` (GET) - Responses with `200 OK` if the server is online and responding.
+- `/api/random` (GET) - Gives you a random number between 1-100.
 
 ---
 
-`/api/say` (POST) - Repeats back what you said.
+- `/api/say` (POST) - Repeats whatever you say to it.
 
-Request with a JSON body like this:
+Send this as a JSON body:
 
 ```json
 {
