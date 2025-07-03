@@ -41,6 +41,7 @@ func AddUserHandler(client *mongo.Client) http.HandlerFunc {
 			return
 		}
 
+		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(user)
 	}
