@@ -1,0 +1,15 @@
+{
+  "name": "go-webserver",
+  "version": "1.0.0",
+  "description": "A simple web server in Go",
+  "main": "server.go",
+  "scripts": {
+    "start": "/bin/webserver.exe",
+    "start-linux": "./bin/webserver",
+    "dev": "go run main.go",
+    "build": "go build -o bin/webserver.exe main.go",
+    "build-linux": "GOOS=linux GOARCH=amd64 go build -o bin/webserver main.go"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

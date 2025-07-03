@@ -1,0 +1,11 @@
+.idea
+.vscode
+/bin
+/dist
+/build
+/out
+*.exe
+*.dll
+*.so
+*.log
+*.sum
