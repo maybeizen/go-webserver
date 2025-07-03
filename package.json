@@ -6,9 +6,9 @@
   "scripts": {
     "start": "/bin/webserver.exe",
     "start-linux": "./bin/webserver",
-    "dev": "go run main.go",
-    "build": "go build -o bin/webserver.exe main.go",
-    "build-linux": "GOOS=linux GOARCH=amd64 go build -o bin/webserver main.go"
+    "dev": "go run cmd/webserver/main.go",
+    "build": "go build -o bin/webserver.exe ./cmd/webserver",
+    "build-linux": "GOOS=linux GOARCH=amd64 go build -o bin/webserver ./cmd/webserver"
   },
   "author": "Your Name",
   "license": "MIT"

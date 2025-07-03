@@ -11,6 +11,7 @@ import (
 func Routes(r *chi.Mux) http.Handler {
 	r.Get("/random", controller.RandomHandler)
 	r.Get("/health", controller.HealthCheckController)
+	r.Post("/say", controller.SayHandler)
 
 	return r
 }
